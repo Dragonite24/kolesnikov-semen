@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yourusername.github.io/dragonite-page/</loc>
+    <loc>https://dragonite24.github.io/kolesnikov-semen/en</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dragonite24.github.io/kolesnikov-semen/en" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dragonite24.github.io/kolesnikov-semen/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dragonite24.github.io/kolesnikov-semen/en" />
   </url>
   <url>
-    <loc>https://yourusername.github.io/dragonite-page/blog</loc>
+    <loc>https://dragonite24.github.io/kolesnikov-semen/ru</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dragonite24.github.io/kolesnikov-semen/en" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dragonite24.github.io/kolesnikov-semen/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dragonite24.github.io/kolesnikov-semen/en" />
+  </url>
+  <url>
+    <loc>https://dragonite24.github.io/kolesnikov-semen/en/blog</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dragonite24.github.io/kolesnikov-semen/en/blog" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dragonite24.github.io/kolesnikov-semen/ru/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dragonite24.github.io/kolesnikov-semen/en/blog" />
   </url>
   <url>
-    <loc>https://yourusername.github.io/dragonite-page/blog/hello-world</loc>
-    <lastmod>2025-05-20T00:00:00.000Z</lastmod>
+    <loc>https://dragonite24.github.io/kolesnikov-semen/ru/blog</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dragonite24.github.io/kolesnikov-semen/en/blog" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dragonite24.github.io/kolesnikov-semen/ru/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dragonite24.github.io/kolesnikov-semen/en/blog" />
+  </url>
+  <url>
+    <loc>https://dragonite24.github.io/kolesnikov-semen/en/blog/i18n-nx-monorepo</loc>
+    <lastmod>2026-07-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dragonite24.github.io/kolesnikov-semen/en/blog/i18n-nx-monorepo" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dragonite24.github.io/kolesnikov-semen/ru/blog/i18n-nx-monorepo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dragonite24.github.io/kolesnikov-semen/en/blog/i18n-nx-monorepo" />
+  </url>
+  <url>
+    <loc>https://dragonite24.github.io/kolesnikov-semen/ru/blog/i18n-nx-monorepo</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dragonite24.github.io/kolesnikov-semen/en/blog/i18n-nx-monorepo" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dragonite24.github.io/kolesnikov-semen/ru/blog/i18n-nx-monorepo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dragonite24.github.io/kolesnikov-semen/en/blog/i18n-nx-monorepo" />
   </url>
 </urlset>

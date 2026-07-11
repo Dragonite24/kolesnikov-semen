@@ -1,0 +1,1 @@
+import{c as e}from"./D1r6Cov7.js";import{a as t,i as n}from"./UIXwDJTg.js";function r(t){return e&&t.startsWith(e)?t.slice(e.length)||`/`:t}function i(n,i){return`${e}${t(r(n.startsWith(`/`)?n:`/${n}`),i?{locale:i}:void 0)}`}function a(e){let t=r(e).split(`/`);return t.length>1&&n.includes(t[1])&&t.splice(1,1),t.join(`/`)||`/`}export{i as n,a as t};

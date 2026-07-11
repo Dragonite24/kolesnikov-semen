@@ -1,1 +1,0 @@
-import{s as e}from"./CDd3Xexo.js";function t(t){return`${e}${t.startsWith(`/`)?t:`/${t}`}`}export{t};
