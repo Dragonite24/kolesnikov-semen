@@ -1,5 +1,6 @@
 import { site } from "$lib/config/site";
 import { getSortedPosts } from "$lib/content/posts";
+import { baseLocale, locales, type Locale } from "$lib/paraglide/runtime";
 import type { RequestHandler } from "./$types";
 
 export const prerender = true;
@@ -15,44 +16,67 @@ function escapeXml(value: string): string {
     .replaceAll("'", "&apos;");
 }
 
-function buildUrl(path: string): string {
-  const base = site.url.replace(/\/$/, "");
-  return `${base}${path}`;
+/** Prefix-all localized path, e.g. `/blog` + `ru` -> `/ru/blog`. */
+function localizedPath(path: string, locale: Locale): string {
+  const clean = path === "/" ? "" : path;
+  return `/${locale}${clean}`;
 }
 
-export const GET: RequestHandler = () => {
-  type SitemapEntry = {
-    loc: string;
-    changefreq: string;
-    priority: string;
-    lastmod?: string;
-  };
+function buildUrl(path: string): string {
+  const origin = site.url.replace(/\/$/, "");
+  return `${origin}${path}`;
+}
 
-  const urls: SitemapEntry[] = [
+type SitemapEntry = {
+  path: string;
+  changefreq: string;
+  priority: string;
+  lastmod?: string;
+};
+
+export const GET: RequestHandler = () => {
+  const entries: SitemapEntry[] = [
     ...staticRoutes.map((path) => ({
-      loc: buildUrl(path),
+      path,
       changefreq: "monthly",
       priority: path === "/" ? "1.0" : "0.8",
     })),
-    ...getSortedPosts().map((post) => ({
-      loc: buildUrl(`/blog/${post.slug}`),
+    ...getSortedPosts(baseLocale).map((post) => ({
+      path: `/blog/${post.slug}`,
       changefreq: "yearly",
       priority: "0.6",
-      lastmod: post.date,
+      lastmod: post.updated,
     })),
   ];
 
-  const body = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-  .map(
-    (entry) => `  <url>
-    <loc>${escapeXml(entry.loc)}</loc>${entry.lastmod ? `\n    <lastmod>${entry.lastmod}</lastmod>` : ""}
+  const urls = entries.flatMap((entry) =>
+    locales.map((locale) => {
+      const alternates = [
+        ...locales.map(
+          (l) =>
+            `    <xhtml:link rel="alternate" hreflang="${l}" href="${escapeXml(
+              buildUrl(localizedPath(entry.path, l)),
+            )}" />`,
+        ),
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(
+          buildUrl(localizedPath(entry.path, baseLocale)),
+        )}" />`,
+      ].join("\n");
+
+      return `  <url>
+    <loc>${escapeXml(buildUrl(localizedPath(entry.path, locale)))}</loc>${
+      entry.lastmod ? `\n    <lastmod>${entry.lastmod}</lastmod>` : ""
+    }
     <changefreq>${entry.changefreq}</changefreq>
     <priority>${entry.priority}</priority>
-  </url>`,
-  )
-  .join("\n")}
+${alternates}
+  </url>`;
+    }),
+  );
+
+  const body = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls.join("\n")}
 </urlset>`;
 
   return new Response(body, {

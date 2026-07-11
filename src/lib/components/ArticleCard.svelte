@@ -1,7 +1,8 @@
 <script lang="ts">
+  import DisplayDate from "$lib/components/DisplayDate.svelte";
+  import { m } from "$lib/paraglide/messages";
   import type { BlogPostMeta } from "$lib/types/blog";
-  import { formatDisplayDate } from "$lib/seo";
-  import { resolvePath } from "$lib/utils/paths";
+  import { localizedPath } from "$lib/utils/paths";
 
   interface Props {
     post: BlogPostMeta;
@@ -11,21 +12,22 @@
 </script>
 
 <article class="article-card">
-  <a href={resolvePath(`/blog/${post.slug}`)} class="action-card article-card__link">
+  <a
+    href={localizedPath(`/blog/${post.slug}`)}
+    class="action-card article-card__link"
+  >
     <span class="action-card__content">
       <header class="article-card__header">
-        <time
+        <DisplayDate
+          date={post.date}
           class="article-card__date font-mono text-muted"
-          datetime={post.date}
-        >
-          {formatDisplayDate(post.date)}
-        </time>
+        />
         <h2 class="action-card__title font-heading">{post.title}</h2>
       </header>
       <p class="article-card__description">{post.description}</p>
       {#if post.tags.length > 0}
-        <ul class="article-card__tags" aria-label="Tags">
-          {#each post.tags as tag}
+        <ul class="article-card__tags" aria-label={m.blog_tags_label()}>
+          {#each post.tags as tag (tag)}
             <li><span class="tag">{tag}</span></li>
           {/each}
         </ul>
@@ -50,7 +52,7 @@
     gap: 0.35rem;
   }
 
-  .article-card__date {
+  :global(.article-card__date) {
     font-size: var(--font-size-xs);
   }
 

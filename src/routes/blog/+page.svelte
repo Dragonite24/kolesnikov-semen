@@ -3,30 +3,31 @@
   import Seo from "$lib/components/Seo.svelte";
   import Container from "$lib/components/layout/Container.svelte";
   import { getSortedPosts } from "$lib/content/posts";
+  import { m } from "$lib/paraglide/messages";
+  import { getLocale } from "$lib/paraglide/runtime";
 
-  const posts = getSortedPosts();
+  const posts = $derived(getSortedPosts(getLocale()));
 </script>
 
 <Seo
-  title="Blog"
-  description="Essays and notes on design, engineering, and building for the web."
+  title={m.blog_seo_title()}
+  description={m.blog_seo_description()}
   canonical="/blog"
 />
 
 <Container tag="section">
   <header class="page-header">
-    <p class="font-mono text-muted">Writing</p>
-    <h1 class="page-header__title">Blog</h1>
+    <p class="font-mono text-muted">{m.blog_kicker()}</p>
+    <h1 class="page-header__title">{m.blog_title()}</h1>
     <p class="page-header__description">
-      Longer thoughts on craft, constraints, and the quiet details that make
-      interfaces feel intentional.
+      {m.blog_description()}
     </p>
   </header>
 
-  <div class="blog-list" role="feed" aria-label="Blog posts">
-    <!-- {#each posts as post (post.slug)}
+  <div class="blog-list" role="feed" aria-label={m.blog_feed_label()}>
+    {#each posts as post (post.slug)}
       <ArticleCard {post} />
-    {/each} -->
+    {/each}
   </div>
 </Container>
 

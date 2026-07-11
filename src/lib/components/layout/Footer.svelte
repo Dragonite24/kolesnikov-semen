@@ -1,5 +1,6 @@
 <script lang="ts">
   import { site } from "$lib/config/site";
+  import { m } from "$lib/paraglide/messages";
 
   const year = new Date().getFullYear();
 </script>
@@ -11,33 +12,39 @@
       {year}
       {site.name}
     </p>
-    <nav class="footer__nav" aria-label="Footer">
+    <nav class="footer__nav" aria-label={m.footer_nav_label()}>
       <ul class="footer__list">
-        <li>
-          <a
-            href={site.github}
-            class="link-underline font-mono"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            GitHub
-          </a>
-        </li>
-        <li>
-          <a href="mailto:{site.email}" class="link-underline font-mono">
-            Email
-          </a>
-        </li>
-        <li>
-          <a
-            href={site.telegram}
-            class="link-underline font-mono"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Telegram
-          </a>
-        </li>
+        {#if site.github}
+          <li>
+            <a
+              href={site.github}
+              class="link-underline font-mono"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {m.footer_github()}
+            </a>
+          </li>
+        {/if}
+        {#if site.email}
+          <li>
+            <a href="mailto:{site.email}" class="link-underline font-mono">
+              {m.footer_email()}
+            </a>
+          </li>
+        {/if}
+        {#if site.telegram}
+          <li>
+            <a
+              href={site.telegram}
+              class="link-underline font-mono"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {m.footer_telegram()}
+            </a>
+          </li>
+        {/if}
       </ul>
     </nav>
   </div>

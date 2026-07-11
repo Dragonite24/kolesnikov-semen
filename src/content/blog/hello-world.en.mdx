@@ -2,10 +2,11 @@
 title: Hello World
 description: A starter template for blog posts — frontmatter, prose, code blocks, and MDX components.
 date: 2025-05-20
+updated: 2025-05-20
 tags:
   - template
   - mdx
-draft: false
+draft: true
 ---
 
 Use this file as a copy-paste template. Each post lives in `src/content/blog/` as `your-slug.mdx` and is compiled at build time into Svelte markup.
@@ -16,7 +17,8 @@ Required fields:
 
 - **title** — page heading and SEO title
 - **description** — excerpt for cards and meta tags
-- **date** — ISO date (`YYYY-MM-DD`)
+- **date** — ISO publish date (`YYYY-MM-DD`)
+- **updated** — ISO last-updated date (`YYYY-MM-DD`; may equal `date`)
 - **tags** — list for the blog index
 
 Optional:

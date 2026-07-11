@@ -12,6 +12,11 @@
 
   {#if meta.noindex}
     <meta name="robots" content="noindex, nofollow" />
+  {:else}
+    {#each meta.alternates as alternate (alternate.locale)}
+      <link rel="alternate" hreflang={alternate.locale} href={alternate.href} />
+    {/each}
+    <link rel="alternate" hreflang="x-default" href={meta.xDefault} />
   {/if}
 
   <meta property="og:title" content={meta.title} />
@@ -29,8 +34,12 @@
     <meta property="article:published_time" content={meta.publishedTime} />
   {/if}
 
+  {#if meta.type === "article" && meta.modifiedTime}
+    <meta property="article:modified_time" content={meta.modifiedTime} />
+  {/if}
+
   {#if meta.tags}
-    {#each meta.tags as tag}
+    {#each meta.tags as tag (tag)}
       <meta property="article:tag" content={tag} />
     {/each}
   {/if}

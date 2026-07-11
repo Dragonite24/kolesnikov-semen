@@ -1,32 +1,27 @@
 <script lang="ts">
   import Seo from "$lib/components/Seo.svelte";
   import Container from "$lib/components/layout/Container.svelte";
-  import {
-    education,
-    experience,
-    skills,
-    summary,
-    yearsOfExperienceLabel,
-  } from "$lib/data/resume";
+  import { education, experience, skills, summary } from "$lib/data/resume";
+  import { m } from "$lib/paraglide/messages";
 </script>
 
 <Seo
-  title="Portfolio"
-  description="Professional experience, education, and skills — Senior Frontend Developer with {yearsOfExperienceLabel()} years building scalable React and TypeScript products."
+  title={m.portfolio_seo_title()}
+  description={m.portfolio_seo_description()}
   canonical="/portfolio"
   noindex
 />
 
 <Container tag="section">
   <header class="page-header">
-    <p class="font-mono text-muted">Senior Frontend Developer</p>
-    <h1 class="page-header__title">Experience</h1>
+    <p class="font-mono text-muted">{m.role_title()}</p>
+    <h1 class="page-header__title">{m.portfolio_title()}</h1>
     <p class="page-header__description">{summary}</p>
   </header>
 
   <section class="section" aria-labelledby="experience-heading">
     <h2 id="experience-heading" class="section-label font-mono text-muted">
-      Professional experience
+      {m.portfolio_experience_heading()}
     </h2>
     <ul class="experience-list" role="list">
       {#each experience as job (job.id)}
@@ -52,7 +47,7 @@
             {#if job.tags.length > 0}
               <ul
                 class="experience-item__tags"
-                aria-label="Technologies and focus areas"
+                aria-label={m.portfolio_tech_label()}
               >
                 {#each job.tags as tag}
                   <li><span class="tag">{tag}</span></li>
@@ -67,7 +62,7 @@
 
   <section class="section" aria-labelledby="education-heading">
     <h2 id="education-heading" class="section-label font-mono text-muted">
-      Education
+      {m.portfolio_education_heading()}
     </h2>
     <article class="education-block">
       <h3 class="education-block__school font-heading">{education.school}</h3>
@@ -77,9 +72,9 @@
 
   <section class="section" aria-labelledby="skills-heading">
     <h2 id="skills-heading" class="section-label font-mono text-muted">
-      Skills
+      {m.portfolio_skills_heading()}
     </h2>
-    <ul class="skills-list" aria-label="Technical skills">
+    <ul class="skills-list" aria-label={m.portfolio_skills_label()}>
       {#each skills as skill}
         <li><span class="tag">{skill}</span></li>
       {/each}
@@ -137,6 +132,7 @@
     gap: 0.35rem;
     font-size: var(--font-size-xs);
     white-space: nowrap;
+    padding-top: 8px;
   }
 
   .experience-item__about {

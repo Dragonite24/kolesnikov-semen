@@ -1,11 +1,12 @@
 import { error } from "@sveltejs/kit";
-import { getPostBySlug, getSortedPosts } from "$lib/content/posts";
-import type { EntryGenerator, PageLoad } from "./$types";
+import { getPostBySlug } from "$lib/content/posts";
+import { getLocale } from "$lib/paraglide/runtime";
+import type { PageLoad } from "./$types";
 
 export const prerender = true;
 
 export const load: PageLoad = ({ params }) => {
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlug(params.slug, getLocale());
 
   if (!post) {
     error(404, "Post not found");
@@ -13,8 +14,4 @@ export const load: PageLoad = ({ params }) => {
 
   const { Component, ...meta } = post;
   return { meta, Component };
-};
-
-export const entries: EntryGenerator = () => {
-  return getSortedPosts().map((post) => ({ slug: post.slug }));
 };

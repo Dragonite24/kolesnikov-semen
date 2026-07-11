@@ -33,7 +33,15 @@ const config = {
       strict: true,
     }),
     paths: {
-      base: dev ? "" : "/dragonite-page",
+      base: dev ? "" : "/kolesnikov-semen",
+      // Use absolute (base-prefixed) asset paths so deeply-nested localized
+      // routes (e.g. /en/blog/slug) resolve assets correctly on GitHub Pages.
+      relative: false,
+    },
+    prerender: {
+      // Seed both localized trees; SvelteKit crawls localized anchor links
+      // (nav + language switcher) to discover the rest of each locale.
+      entries: ["/en", "/ru", "/sitemap.xml"],
     },
   },
 };
