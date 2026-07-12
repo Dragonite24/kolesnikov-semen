@@ -1,15 +1,26 @@
 <script lang="ts">
   import DisplayDate from "$lib/components/DisplayDate.svelte";
   import Seo from "$lib/components/Seo.svelte";
+  import TableOfContents from "$lib/components/TableOfContents.svelte";
   import Container from "$lib/components/layout/Container.svelte";
   import { m } from "$lib/paraglide/messages";
   import { formatIsoDate } from "$lib/seo";
   import { localizedPath } from "$lib/utils/paths";
+  import { collectHeadings, type TocHeading } from "$lib/utils/toc";
 
   let { data } = $props();
   const meta = $derived(data.meta);
   const PostContent = $derived(data.Component);
   const showUpdated = $derived(meta.updated !== meta.date);
+
+  let headings = $state<TocHeading[]>([]);
+
+  function bindPostBody(node: HTMLElement) {
+    headings = collectHeadings(node);
+    return () => {
+      headings = [];
+    };
+  }
 </script>
 
 <Seo
@@ -49,9 +60,13 @@
     {/if}
   </header>
 
-  <div class="prose post-body">
-    <PostContent />
-  </div>
+  <TableOfContents {headings} />
+
+  {#key meta.slug}
+    <div class="prose post-body" {@attach bindPostBody}>
+      <PostContent />
+    </div>
+  {/key}
 </Container>
 
 <style>

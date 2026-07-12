@@ -290,6 +290,7 @@ body {
   font-family: var(--font-heading);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-tight);
+  scroll-margin-top: calc(var(--space-4) + 3rem);
 }
 
 .prose h2 {

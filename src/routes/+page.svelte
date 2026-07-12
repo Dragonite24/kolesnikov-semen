@@ -2,23 +2,22 @@
   import Seo from "$lib/components/Seo.svelte";
   import Container from "$lib/components/layout/Container.svelte";
   import { site } from "$lib/config/site";
-  import { summary } from "$lib/data/resume";
   import { m } from "$lib/paraglide/messages";
   import { localizedPath } from "$lib/utils/paths";
 </script>
 
-<Seo />
+<Seo description={m.site_description()} />
 
 <Container tag="section">
   <header class="page-header">
-    <p class="font-mono text-muted">{m.role_title()}</p>
+    <p class="font-mono text-muted">{m.home_kicker()}</p>
     <h1 class="page-header__title">{site.name}</h1>
-    <p class="page-header__description">{site.description}</p>
+    <p class="page-header__description">{m.site_description()}</p>
   </header>
 
   <section class="section" aria-labelledby="intro-heading">
     <h2 id="intro-heading" class="sr-only">{m.home_intro_heading()}</h2>
-    <p class="prose">{summary}</p>
+    <p class="prose">{m.home_interests()}</p>
   </section>
 
   <section class="section" aria-labelledby="links-heading">

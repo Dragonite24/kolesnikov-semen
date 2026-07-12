@@ -1,7 +1,12 @@
 <script lang="ts">
   import Seo from "$lib/components/Seo.svelte";
   import Container from "$lib/components/layout/Container.svelte";
-  import { education, experience, skills, summary } from "$lib/data/resume";
+  import {
+    education,
+    experience,
+    skills,
+    yearsOfExperienceLabel,
+  } from "$lib/data/resume";
   import { m } from "$lib/paraglide/messages";
 </script>
 
@@ -16,7 +21,9 @@
   <header class="page-header">
     <p class="font-mono text-muted">{m.role_title()}</p>
     <h1 class="page-header__title">{m.portfolio_title()}</h1>
-    <p class="page-header__description">{summary}</p>
+    <p class="page-header__description">
+      {m.summary({ years: yearsOfExperienceLabel() })}
+    </p>
   </header>
 
   <section class="section" aria-labelledby="experience-heading">
@@ -40,7 +47,7 @@
             </header>
             <p class="experience-item__about">{job.companyDescription}</p>
             <ul class="experience-item__highlights">
-              {#each job.highlights as highlight}
+              {#each job.highlights as highlight (highlight)}
                 <li>{highlight}</li>
               {/each}
             </ul>
@@ -49,7 +56,7 @@
                 class="experience-item__tags"
                 aria-label={m.portfolio_tech_label()}
               >
-                {#each job.tags as tag}
+                {#each job.tags as tag (tag)}
                   <li><span class="tag">{tag}</span></li>
                 {/each}
               </ul>
@@ -75,7 +82,7 @@
       {m.portfolio_skills_heading()}
     </h2>
     <ul class="skills-list" aria-label={m.portfolio_skills_label()}>
-      {#each skills as skill}
+      {#each skills as skill (skill)}
         <li><span class="tag">{skill}</span></li>
       {/each}
     </ul>

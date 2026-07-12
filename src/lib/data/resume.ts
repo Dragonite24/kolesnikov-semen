@@ -14,7 +14,7 @@ export function yearsOfExperienceLabel(asOf: Date = new Date()): string {
 
 export function buildSummary(asOf: Date = new Date()): string {
   const years = yearsOfExperienceLabel(asOf);
-  return `Frontend Developer with ${years} years of experience building scalable, high-performance web applications with React, TypeScript, and Next.js. Focused on frontend architecture, performance optimization, and maintainable UI systems across complex products—including microfrontend and monorepo environments. Experienced in internal tooling, developer workflows, and production-ready delivery with GraphQL, TanStack Query, and modern testing. Multiple-time winner of the Leaders of Digital hackathon.`;
+  return `Over the past ${years} years, I've worked on enterprise products, frontend platforms, and complex UI systems — with a strong focus on architecture, performance, UX, and long-term maintainability. I regularly drive frontend decisions within teams: improving engineering workflows, mentoring developers, and helping products scale without losing development quality or user experience. My main areas of interest include frontend architecture, product development, design systems, performance optimization, accessibility, SSR/RSC, and developer experience.`;
 }
 
 export const summary = buildSummary();
