@@ -26,12 +26,12 @@
   .lang-switcher {
     display: flex;
     align-items: center;
-    gap: 0.1rem;
+    gap: var(--space-1);
   }
 
   .lang-switcher__link {
     font-size: var(--font-size-xs);
-    padding: 0.15rem 0.25rem;
+    padding: 0.15rem 0.4rem;
     border-radius: var(--radius-sm, 0.25rem);
     color: var(--color-muted);
     text-transform: uppercase;
