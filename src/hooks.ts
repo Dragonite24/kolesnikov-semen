@@ -1,16 +1,28 @@
 import type { Reroute } from "@sveltejs/kit";
+import { browser } from "$app/environment";
 import { base } from "$app/paths";
-import { deLocalizeUrl } from "$lib/paraglide/runtime";
+import {
+  localeFromPathname,
+  toAppUrl,
+  withAppBase,
+} from "$lib/i18n/routing";
+import {
+  deLocalizeUrl,
+  defineCustomClientStrategy,
+} from "$lib/paraglide/runtime";
+
+if (browser) {
+  defineCustomClientStrategy("custom-app-path", {
+    getLocale: () => localeFromPathname(window.location.pathname),
+    // Locale changes use localized links and perform a full navigation, so
+    // there is no additional client-side state to persist here.
+    setLocale: () => undefined,
+  });
+}
 
 export const reroute: Reroute = (request) => {
   const url = new URL(request.url);
-  // SvelteKit runs `reroute` before stripping `paths.base`, so match against a
-  // base-less path (Paraglide's URL patterns are defined without the base) and
-  // re-add the base to the result so SvelteKit still recognises it as in-scope.
   const hasBase = Boolean(base) && url.pathname.startsWith(base);
-  if (hasBase) {
-    url.pathname = url.pathname.slice(base.length) || "/";
-  }
-  const deLocalized = deLocalizeUrl(url).pathname;
-  return hasBase ? `${base}${deLocalized}` : deLocalized;
+  const deLocalized = deLocalizeUrl(toAppUrl(url)).pathname;
+  return hasBase ? withAppBase(deLocalized) : deLocalized;
 };

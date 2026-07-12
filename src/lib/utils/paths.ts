@@ -1,20 +1,15 @@
-import { base } from "$app/paths";
+import {
+  stripAppBase,
+  withAppBase,
+  type AppLocale,
+} from "$lib/i18n/routing";
 import { localizeHref, locales } from "$lib/paraglide/runtime";
 
-export type AppLocale = (typeof locales)[number];
-
-/** Remove the configured `paths.base` prefix from a pathname, if present. */
-function stripBase(pathname: string): string {
-  if (base && pathname.startsWith(base)) {
-    return pathname.slice(base.length) || "/";
-  }
-  return pathname;
-}
+export type { AppLocale } from "$lib/i18n/routing";
 
 /** Resolve an app path against the configured `paths.base` (e.g. GitHub Pages). */
 export function resolvePath(path: string): string {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${base}${normalized}`;
+  return withAppBase(path);
 }
 
 /**
@@ -25,10 +20,10 @@ export function resolvePath(path: string): string {
 export function localizedPath(path: string, locale?: AppLocale): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   const localized = localizeHref(
-    stripBase(normalized),
+    stripAppBase(normalized),
     locale ? { locale } : undefined,
   );
-  return `${base}${localized}`;
+  return withAppBase(localized);
 }
 
 /**
@@ -36,7 +31,7 @@ export function localizedPath(path: string, locale?: AppLocale): string {
  * yielding the canonical, locale-agnostic app path (e.g. `/en/blog` -> `/blog`).
  */
 export function deLocalizedAppPath(pathname: string): string {
-  const segments = stripBase(pathname).split("/");
+  const segments = stripAppBase(pathname).split("/");
   if (
     segments.length > 1 &&
     (locales as readonly string[]).includes(segments[1])
