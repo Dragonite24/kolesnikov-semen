@@ -10,7 +10,6 @@ import {
 export interface SeoProps {
   title?: string;
   description?: string;
-  image?: string;
   canonical?: string;
   type?: "website" | "article";
   publishedTime?: string;
@@ -59,7 +58,6 @@ export function buildSeoMeta(props: SeoProps = {}) {
   }));
   const xDefault = localizedUrl(appPath, baseLocale);
 
-  const image = props.image ? absoluteUrl(props.image) : undefined;
   const type = props.type ?? "website";
 
   return {
@@ -68,7 +66,11 @@ export function buildSeoMeta(props: SeoProps = {}) {
     canonical,
     alternates,
     xDefault,
-    image,
+    image: absoluteUrl(site.ogImage),
+    imageAlt: site.name,
+    imageWidth: site.ogImageWidth,
+    imageHeight: site.ogImageHeight,
+    imageType: "image/png",
     type,
     publishedTime: props.publishedTime,
     modifiedTime: props.modifiedTime,

@@ -1,12 +1,11 @@
 <script lang="ts">
   import { page } from "$app/state";
-  import favicon from "$lib/assets/favicon.svg";
   import ReadingProgress from "$lib/components/ReadingProgress.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
   import Header from "$lib/components/layout/Header.svelte";
   import SpectrumBackground from "$lib/components/layout/SpectrumBackground.svelte";
   import { m } from "$lib/paraglide/messages";
-  import { deLocalizedAppPath } from "$lib/utils/paths";
+  import { deLocalizedAppPath, resolvePath } from "$lib/utils/paths";
   import { onMount } from "svelte";
   import "@fontsource/geist-mono/400.css";
   import "@fontsource/geist-mono/500.css";
@@ -14,7 +13,6 @@
   import "$styles/global.css";
 
   let { children } = $props();
-
   const showReadingProgress = $derived(
     /^\/blog\/[^/]+$/.test(deLocalizedAppPath(page.url.pathname)),
   );
@@ -30,7 +28,21 @@
 <svelte:head>
   <meta name="theme-color" content="#fafafa" />
   <meta name="color-scheme" content="light" />
-  <link rel="icon" href={favicon} />
+  <link rel="icon" href={resolvePath("/favicon.ico")} sizes="any" />
+  <link
+    rel="icon"
+    href={resolvePath("/favicon-32x32.png")}
+    type="image/png"
+    sizes="32x32"
+  />
+  <link
+    rel="icon"
+    href={resolvePath("/favicon-16x16.png")}
+    type="image/png"
+    sizes="16x16"
+  />
+  <link rel="apple-touch-icon" href={resolvePath("/apple-touch-icon.png")} />
+  <link rel="manifest" href={resolvePath("/site.webmanifest")} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     rel="preconnect"

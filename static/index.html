@@ -12,7 +12,7 @@
     <script>
       // Redirect the base path to a localized entry, preferring the visitor's language.
       var lang =
-        (navigator.language || "en").toLowerCase().indexOf("ru") === 0
+        (navigator.language).toLowerCase().indexOf("ru") === 0
           ? "ru"
           : "en";
       location.replace("./" + lang);

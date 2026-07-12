@@ -25,10 +25,11 @@
   <meta property="og:type" content={meta.type} />
   <meta property="og:site_name" content={meta.siteName} />
   <meta property="og:locale" content={meta.locale} />
-
-  {#if meta.image}
-    <meta property="og:image" content={meta.image} />
-  {/if}
+  <meta property="og:image" content={meta.image} />
+  <meta property="og:image:alt" content={meta.imageAlt} />
+  <meta property="og:image:width" content={String(meta.imageWidth)} />
+  <meta property="og:image:height" content={String(meta.imageHeight)} />
+  <meta property="og:image:type" content={meta.imageType} />
 
   {#if meta.type === "article" && meta.publishedTime}
     <meta property="article:published_time" content={meta.publishedTime} />
@@ -44,17 +45,12 @@
     {/each}
   {/if}
 
-  <meta
-    name="twitter:card"
-    content={meta.image ? "summary_large_image" : "summary"}
-  />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={meta.title} />
   <meta name="twitter:description" content={meta.description} />
+  <meta name="twitter:image" content={meta.image} />
+  <meta name="twitter:image:alt" content={meta.imageAlt} />
   {#if meta.twitterHandle}
     <meta name="twitter:site" content={meta.twitterHandle} />
-  {/if}
-
-  {#if meta.image}
-    <meta name="twitter:image" content={meta.image} />
   {/if}
 </svelte:head>
