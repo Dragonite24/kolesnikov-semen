@@ -1,1 +1,0 @@
-import{a as e,o as t}from"./DWt1H8ET.js";import{i as n,n as r}from"./MtFTNw_C.js";function i(e){return n(e)}function a(e,i){return n(t(r(e.startsWith(`/`)?e:`/${e}`),i?{locale:i}:void 0))}function o(t){let n=r(t).split(`/`);return n.length>1&&e.includes(n[1])&&n.splice(1,1),n.join(`/`)||`/`}export{a as n,i as r,o as t};

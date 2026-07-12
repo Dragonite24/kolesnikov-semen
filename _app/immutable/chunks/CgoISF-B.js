@@ -1,0 +1,1 @@
+import{c as e}from"./DmraHTG6.js";import{a as t}from"./DWt1H8ET.js";function n(t){return e&&t.startsWith(e)?t.slice(e.length)||`/`:t}function r(t){return`${e}${t.startsWith(`/`)?t:`/${t}`}`}function i(e){let t=new URL(e);return t.pathname=n(t.pathname),t}function a(e){let r=n(e).split(`/`).filter(Boolean)[0];return t.includes(r)?r:void 0}export{r as i,n,i as r,a as t};
