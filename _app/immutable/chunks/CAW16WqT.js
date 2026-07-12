@@ -1,1 +1,0 @@
-import{n as e}from"./UIXwDJTg.js";var t=()=>`Senior Frontend Developer`,n=()=>`Senior Frontend Developer`,r=((r={},i={})=>(i.locale??e())===`en`?t(r):n(r));export{r as t};
