@@ -1,13 +1,11 @@
 <script lang="ts">
   import Seo from "$lib/components/Seo.svelte";
   import Container from "$lib/components/layout/Container.svelte";
-  import {
-    education,
-    experience,
-    skills,
-    yearsOfExperienceLabel,
-  } from "$lib/data/resume";
+  import { getResume, yearsOfExperienceLabel } from "$lib/data/resume";
   import { m } from "$lib/paraglide/messages";
+  import { getLocale } from "$lib/paraglide/runtime";
+
+  const resume = $derived(getResume(getLocale()));
 </script>
 
 <Seo
@@ -21,6 +19,9 @@
   <header class="page-header">
     <p class="font-mono text-muted">{m.role_title()}</p>
     <h1 class="page-header__title">{m.portfolio_title()}</h1>
+    <p class="resume-location text-muted">
+      {m.resume_location()} · UTC+4
+    </p>
     <p class="page-header__description">
       {m.summary({ years: yearsOfExperienceLabel() })}
     </p>
@@ -31,7 +32,7 @@
       {m.portfolio_experience_heading()}
     </h2>
     <ul class="experience-list" role="list">
-      {#each experience as job (job.id)}
+      {#each resume.experience as job (job.id)}
         <li class="experience-item">
           <article>
             <header class="experience-item__header">
@@ -72,8 +73,12 @@
       {m.portfolio_education_heading()}
     </h2>
     <article class="education-block">
-      <h3 class="education-block__school font-heading">{education.school}</h3>
-      <p class="education-block__degree text-muted">{education.degree}</p>
+      <h3 class="education-block__school font-heading">
+        {resume.education.school}
+      </h3>
+      <p class="education-block__degree text-muted">
+        {resume.education.degree}
+      </p>
     </article>
   </section>
 
@@ -81,15 +86,37 @@
     <h2 id="skills-heading" class="section-label font-mono text-muted">
       {m.portfolio_skills_heading()}
     </h2>
-    <ul class="skills-list" aria-label={m.portfolio_skills_label()}>
-      {#each skills as skill (skill)}
-        <li><span class="tag">{skill}</span></li>
+    {#each resume.skillGroups as group (group.id)}
+      <div class="skill-group">
+        <h3 id="skills-{group.id}" class="skill-group__title font-heading">
+          {group.label}
+        </h3>
+        <ul class="skills-list" aria-labelledby="skills-{group.id}">
+          {#each group.skills as skill (skill)}
+            <li><span class="tag">{skill}</span></li>
+          {/each}
+        </ul>
+      </div>
+    {/each}
+  </section>
+
+  <section class="section" aria-labelledby="additional-heading">
+    <h2 id="additional-heading" class="section-label font-mono text-muted">
+      {m.portfolio_additional_heading()}
+    </h2>
+    <ul class="additional-list text-muted">
+      {#each resume.additionalInformation as item (item)}
+        <li>{item}</li>
       {/each}
     </ul>
   </section>
 </Container>
 
 <style>
+  .resume-location {
+    font-size: var(--font-size-sm);
+  }
+
   .experience-list {
     display: flex;
     flex-direction: column;
@@ -138,7 +165,6 @@
     flex-wrap: wrap;
     gap: 0.35rem;
     font-size: var(--font-size-xs);
-    white-space: nowrap;
     padding-top: 8px;
   }
 
@@ -191,6 +217,24 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-1);
-    padding-top: var(--space-2);
+    padding-top: var(--space-1);
+  }
+
+  .skills-list li {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .skill-group__title {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+  }
+
+  .additional-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: var(--font-size-sm);
   }
 </style>

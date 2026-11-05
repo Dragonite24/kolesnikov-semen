@@ -6,7 +6,7 @@ import {
 
 export const site = {
   name: "Semen Kolesnikov",
-  title: "Semen Kolesnikov — Senior Frontend Developer",
+  title: "Semen Kolesnikov — Senior Frontend Engineer",
   description:
     "I'm a frontend engineer focused on building scalable, high-performance web applications with React, TypeScript, and Next.js.",
   url: "https://dragonite24.github.io/kolesnikov-semen/",

@@ -7,13 +7,11 @@ export {
 } from "./seo";
 export { getPostBySlug, getSortedPosts } from "./content/posts";
 export {
-  summary,
   buildSummary,
   careerStart,
   yearsOfExperience,
   yearsOfExperienceLabel,
-  experience,
-  education,
-  skills,
+  getResume,
   type ExperienceItem,
+  type SkillGroup,
 } from "./data/resume";
