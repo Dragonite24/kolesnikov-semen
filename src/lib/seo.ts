@@ -16,6 +16,7 @@ export interface SeoProps {
   modifiedTime?: string;
   tags?: string[];
   noindex?: boolean;
+  image?: { path: string; alt: string; width: number; height: number };
 }
 
 export interface HreflangAlternate {
@@ -66,10 +67,10 @@ export function buildSeoMeta(props: SeoProps = {}) {
     canonical,
     alternates,
     xDefault,
-    image: absoluteUrl(site.ogImage),
-    imageAlt: site.name,
-    imageWidth: site.ogImageWidth,
-    imageHeight: site.ogImageHeight,
+    image: absoluteUrl(props.image?.path ?? site.ogImage),
+    imageAlt: props.image?.alt ?? site.name,
+    imageWidth: props.image?.width ?? site.ogImageWidth,
+    imageHeight: props.image?.height ?? site.ogImageHeight,
     imageType: "image/png",
     type,
     publishedTime: props.publishedTime,

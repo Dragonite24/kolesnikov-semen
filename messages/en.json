@@ -14,6 +14,8 @@
   "role_title": "Senior Frontend Engineer",
   "site_description": "I'm a frontend developer who enjoys understanding how complex things work, finding simple ways to build them, and sharing what I learn along the way.",
   "summary": "Senior Frontend Engineer with {years} years of experience building interactive widgets, e-commerce, and enterprise applications with React, TypeScript, and Next.js. Own frontend delivery from product requirements and architecture through production release. Combine hands-on product development with shared frontend infrastructure, performance optimization, automated testing, and developer tooling.",
+  "home_og_image_alt": "Semen Kolesnikov — Senior Frontend Engineer",
+  "blog_author": "Kolesnikov Semen",
   "home_kicker": "About me",
   "home_interests": "This site is a home for notes on software and the things that spark my curiosity. I share lessons from real projects, take apart solutions that worked, and occasionally write down ideas I want to revisit. Away from the screen, I play lead guitar, go climbing and hiking, and generally try to keep moving.",
   "home_intro_heading": "About this site",

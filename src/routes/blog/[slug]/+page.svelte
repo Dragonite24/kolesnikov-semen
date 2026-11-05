@@ -4,7 +4,7 @@
   import TableOfContents from "$lib/components/TableOfContents.svelte";
   import Container from "$lib/components/layout/Container.svelte";
   import { m } from "$lib/paraglide/messages";
-  import { formatIsoDate } from "$lib/seo";
+  import { buildSeoMeta, formatIsoDate } from "$lib/seo";
   import { localizedPath } from "$lib/utils/paths";
   import { collectHeadings, type TocHeading } from "$lib/utils/toc";
 
@@ -12,6 +12,24 @@
   const meta = $derived(data.meta);
   const PostContent = $derived(data.Component);
   const showUpdated = $derived(meta.updated !== meta.date);
+
+  const canonical = $derived(`/blog/${meta.slug}`);
+  const structuredData = $derived(
+    JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      mainEntityOfPage: buildSeoMeta({ canonical }).canonical,
+      headline: meta.title,
+      description: meta.description,
+      datePublished: formatIsoDate(meta.date),
+      dateModified: formatIsoDate(meta.updated),
+      author: {
+        "@type": "Person",
+        name: m.blog_author(),
+        url: buildSeoMeta().canonical,
+      },
+    }).replaceAll("<", "\\u003c"),
+  );
 
   let headings = $state<TocHeading[]>([]);
 
@@ -26,18 +44,23 @@
 <Seo
   title={meta.title}
   description={meta.description}
-  canonical="/blog/{meta.slug}"
+  {canonical}
   type="article"
   publishedTime={formatIsoDate(meta.date)}
   modifiedTime={showUpdated ? formatIsoDate(meta.updated) : undefined}
   tags={meta.tags}
 />
 
+<svelte:head>
+  {@html `<script type="application/ld+json">${structuredData}</${"script"}>`}
+</svelte:head>
+
 <Container tag="article">
   <header class="page-header">
     <div class="post-meta">
-      <a href={localizedPath("/blog")} class="link-underline font-mono post-meta__back"
-        >{m.blog_all_posts()}</a
+      <a
+        href={localizedPath("/blog")}
+        class="link-underline font-mono post-meta__back">{m.blog_all_posts()}</a
       >
       <div class="post-meta__dates font-mono text-muted">
         <DisplayDate date={meta.date} />
@@ -50,6 +73,11 @@
       </div>
     </div>
     <h1 class="page-header__title">{meta.title}</h1>
+    <p class="font-mono text-muted">
+      <a href={localizedPath("/")} class="link-underline" rel="author">
+        {m.blog_author()}
+      </a>
+    </p>
     <p class="page-header__description">{meta.description}</p>
     {#if meta.tags.length > 0}
       <ul class="post-tags" aria-label={m.blog_tags_label()}>

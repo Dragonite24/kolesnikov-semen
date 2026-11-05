@@ -3,10 +3,19 @@
   import Container from "$lib/components/layout/Container.svelte";
   import { site } from "$lib/config/site";
   import { m } from "$lib/paraglide/messages";
+  import { getLocale } from "$lib/paraglide/runtime";
   import { localizedPath } from "$lib/utils/paths";
 </script>
 
-<Seo description={m.site_description()} />
+<Seo
+  description={m.site_description()}
+  image={{
+    path: `/og/home-${getLocale()}.png`,
+    alt: m.home_og_image_alt(),
+    width: 1200,
+    height: 630,
+  }}
+/>
 
 <Container tag="section">
   <header class="page-header">
